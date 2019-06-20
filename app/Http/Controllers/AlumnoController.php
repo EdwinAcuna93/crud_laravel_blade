@@ -37,6 +37,12 @@ class AlumnoController extends Controller
     public function store(Request $request)
     {
         //Crea una instanncia del modelo y le paso los valores que recibo del formulario
+
+        $request->validate([
+            'nombre'=>'required',
+            'apellido'=>'required',
+            'direccion'=>'required'
+        ]);
       
      $alumno_insertar = new Alumno;
 
@@ -46,9 +52,11 @@ class AlumnoController extends Controller
      $alumno_insertar->fecha_nacimiento=$request->fecha_nacimiento;
      $alumno_insertar->altura=$request->altura;
 
+    //Alumno::create($request->all());
+
   
      $alumno_insertar->save();
-     return redirect('/alumnos');
+     return redirect('/alumnos')->with('success','Alumno creado successfully.');;
 
     }
 
